@@ -1,4 +1,4 @@
-const login = '0f52672c1c1dafd1808fb4d42a46e56da3182807'; // Put your autologin here
+const login = ''; // Put your autologin here
 
 if (login == '') {
     console.log('Missing autologin url.\nOpen the script and put him into login var');
