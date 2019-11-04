@@ -23,7 +23,7 @@ const city = ['REN', 'BDX', 'LIL', 'LYN', 'MAR', 'MPL', 'NCY', 'NAN', 'NCE', 'PA
 let allGrades = {'A': 0, 'B': 0, 'C': 0, 'D': 0, 'Echec': 0};
 let grades = {'A': 0, 'B': 0, 'C': 0, 'D': 0, 'Echec': 0};
 let total = 0;
-let totalNation = 1;
+let totalNation = 0;
 let request;
 
 try {
@@ -41,21 +41,25 @@ request.get(url, (err, res, body) => {
         return;
     }
     accounts.forEach(elem => {
-        grades[elem.grade]++;
-        total++;
+        if (elem.grade == "A" || elem.grade == "B" || elem.grade == "C" || elem.grade == "D" || elem.grade == "Echec") {
+            grades[elem.grade]++;
+            total++;
+        }
     });
     console.log('Total: ' + total + ' students');
     console.log('A: ' + grades['A'] + ' (' + (100 * grades['A'] / total).toFixed(2) + '%)');
     console.log('B: ' + grades['B'] + ' (' + (100 * grades['B'] / total).toFixed(2) + '%)');
     console.log('C: ' + grades['C'] + ' (' + (100 * grades['C'] / total).toFixed(2) + '%)');
     console.log('D: ' + grades['D'] + ' (' + (100 * grades['D'] / total).toFixed(2) + '%)');
-    console.log('E: ' + grades['Echec'] + ' (' + (100 * grades['Echec'] / total).toFixed(2) + '%)');
+    console.log('E: ' + grades['Echec'] + ' (' + (100 * grades['Echec'] / total).toFixed(2) + '%)\n');
 });
 
 var accountfn = (elem) => {
     return new Promise((resolve) => {
-        allGrades[elem.grade]++;
-        totalNation++;
+        if (elem.grade == "A" || elem.grade == "B" || elem.grade == "C" || elem.grade == "D" || elem.grade == "Echec") {
+            allGrades[elem.grade]++;
+            totalNation++;
+        }
         resolve();
     })
 }
@@ -73,7 +77,7 @@ var fn = (elem) => {
 };
 
 Promise.all(city.map(fn)).then(() => {
-    console.log('national:');
+    console.log('National:');
     console.log('Total: ' + totalNation + ' students');
     console.log('A: ' + allGrades['A'] + ' (' + (100 * allGrades['A'] / totalNation).toFixed(2) + '%)');
     console.log('B: ' + allGrades['B'] + ' (' + (100 * allGrades['B'] / totalNation).toFixed(2) + '%)');
